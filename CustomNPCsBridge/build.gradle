@@ -8,6 +8,9 @@ buildscript {
         maven {
             url = "https://plugins.gradle.org/m2/"
         }
+        maven {
+            url = "https://jitpack.io"
+        }
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
@@ -35,5 +38,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spongepowered:spongeapi:7.0.0'
+    compileOnly 'org.spongepowered:spongeapi:7.1.0'
+    compileOnly 'com.github.Sponge-RPG-dev:NT-Rpg:1.0.12-SNAPSHOT'
 }

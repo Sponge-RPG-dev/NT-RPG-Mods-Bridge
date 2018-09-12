@@ -1,0 +1,5 @@
+rootProject.name = 'NT-RPG-Mods-Bridge'
+
+include 'CustomNPCsBridge'
+
+

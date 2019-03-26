@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = 'gradle-plugins'
+            url = 'https://plugins.gradle.org/m2'
+        }
+        maven {
+            url = "https://jitpack.io"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.spongepowered:spongegradle:0.8.1"
+    }
+}
+
+apply plugin: "org.spongepowered.plugin"
+
+group = "cz.neumimto.rpg.itemizerbrdge"
+version = "0.1"
+archivesBaseName = "NT-RPG-ItemizerBridge"
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compileOnly 'org.spongepowered:spongeapi:7.1.0'
+    compileOnly 'com.github.Sponge-RPG-dev:NT-Rpg:1.0.12-SNAPSHOT'
+    compileOnly 'com.github.OnapleRPG:Itemizer:ec843f4201'
+    compileOnly 'com.github.NeumimTo:NT-RPG:461dffb74f'
+}

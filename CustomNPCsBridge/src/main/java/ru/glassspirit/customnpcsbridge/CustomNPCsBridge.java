@@ -3,6 +3,7 @@ package ru.glassspirit.customnpcsbridge;
 import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import ninja.leaping.configurate.objectmapping.ObjectMapper;
 import org.slf4j.Logger;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
@@ -16,19 +17,14 @@ import org.spongepowered.api.plugin.Plugin;
         id = "nt-rpg-customnpcs-bridge",
         name = "NT-RPG CustomNPCs Bridge",
         description = "Bridge plugin that connects NT-RPG plugin and CustomNPCs mod",
-        version = "0.1",
+        version = "0.3",
         authors = {"GlassSpirit"},
         dependencies = {
-                @Dependency(id = "nt-rpg")
+                @Dependency(id = "nt-rpg"),
+                @Dependency(id = "customnpcs")
         }
 )
 public class CustomNPCsBridge {
-
-    public static final String QUESTS_EXP_NODE = "quests_exp";
-    public static final String NPC_KILLS_EXP_NODE = "npc_kills_exp";
-
-    public static boolean questsGiveExp;
-    public static boolean npcKillsGiveExp;
 
     @Inject
     private Logger logger;
@@ -37,8 +33,11 @@ public class CustomNPCsBridge {
     @DefaultConfig(sharedRoot = true)
     private ConfigurationLoader<CommentedConfigurationNode> config;
 
+    public static Configuration configuration;
+
     @Listener
     public void onGameInitialization(GameInitializationEvent event) {
+        configuration = new Configuration();
         loadConfig();
     }
 
@@ -51,8 +50,8 @@ public class CustomNPCsBridge {
     public void onGameAboutToStartServer(GameAboutToStartServerEvent event) {
         try {
             Class.forName("noppes.npcs.api.NpcAPI");
-            new CustomNPCsEventListener().setup();
-            logger.info("CustomNPCs event listener registered!");
+            new CustomNPCsEventListener();
+            logger.info("CustomNPCs found! Event listener registered.");
         } catch (ClassNotFoundException e) {
             logger.error("CustomNPCs not found!", e);
         }
@@ -60,19 +59,10 @@ public class CustomNPCsBridge {
 
     private void loadConfig() {
         try {
+            ObjectMapper.BoundInstance configMapper = ObjectMapper.forObject(configuration);
             CommentedConfigurationNode node = config.load();
-            if (node.getNode(QUESTS_EXP_NODE).isVirtual()) {
-                node.getNode(QUESTS_EXP_NODE).setComment("Should players get experience for completing quests?");
-                node.getNode(QUESTS_EXP_NODE).setValue(true);
-            }
-            if (node.getNode(NPC_KILLS_EXP_NODE).isVirtual()) {
-                node.getNode(NPC_KILLS_EXP_NODE).setComment("Should players get experience for killing NPCs?");
-                node.getNode(NPC_KILLS_EXP_NODE).setValue(true);
-            }
+            configMapper.serialize(node);
             config.save(node);
-
-            questsGiveExp = node.getNode(QUESTS_EXP_NODE).getBoolean(true);
-            npcKillsGiveExp = node.getNode(NPC_KILLS_EXP_NODE).getBoolean(true);
         } catch (Exception e) {
             logger.error("Could not load config", e);
         }

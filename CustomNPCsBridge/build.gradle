@@ -2,33 +2,38 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            name = 'gradle-plugins'
+            url = 'https://plugins.gradle.org/m2'
         }
         maven {
-            url = "https://plugins.gradle.org/m2/"
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
         }
         maven {
-            url = "https://jitpack.io"
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
         }
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
-        classpath "gradle.plugin.org.spongepowered:spongegradle:0.8.1"
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'gradle.plugin.org.spongepowered:spongegradle:0.8.1'
     }
 }
 
-apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "org.spongepowered.plugin"
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.plugin'
 
-group = "ru.glassspirit"
-version = "0.1"
-archivesBaseName = "NT-RPG-CustomNPCsBridge"
+group = 'ru.glassspirit'
+version = '0.3'
+archivesBaseName = 'NT-RPG-CustomNPCs-Bridge'
+
+sourceCompatibility = targetCompatibility = 1.8
+compileJava.options.encoding = compileTestJava.options.encoding = 'UTF-8'
 
 minecraft {
-    version = "2759"
-    runDir = "run"
-
+    forgeVersion = '1.12.2-14.23.5.2811'
+    runDir = 'run'
     mappings = "stable_39"
 }
 
@@ -38,6 +43,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spongepowered:spongeapi:7.1.0'
-    compileOnly 'com.github.Sponge-RPG-dev:NT-Rpg:1.0.12-SNAPSHOT'
+    implementation('org.spongepowered:spongeforge:1.12.2-2768-7.1.5:dev') {
+        exclude module: 'testmods'
+    }
+    implementation 'com.github.Sponge-RPG-dev:NT-RPG:2.0.0-SNAPSHOT-9'
+
+    testCompile "junit:junit:4.11"
 }
+

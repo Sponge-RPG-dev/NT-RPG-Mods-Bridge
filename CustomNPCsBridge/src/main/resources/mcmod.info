@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "nt-rpg-customnpcs-bridge",
+    "name": "NT-RPG CustomNPCs Bridge",
+    "version": "0.3",
+    "description": "Bridge plugin that connects NT-RPG plugin and CustomNPCs mod",
+    "dependencies": [
+      "spongeapi@7.1.0",
+      "nt-rpg"
+    ],
+    "requiredMods": [
+      "spongeapi@7.1.0",
+      "customnpcs"
+    ]
+  }
+]

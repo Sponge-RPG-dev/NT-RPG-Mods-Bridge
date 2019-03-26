@@ -5,6 +5,7 @@ import cz.neumimto.config.blackjack.and.hookers.annotations.CustomAdapter;
 import cz.neumimto.rpg.effects.EffectParams;
 import cz.neumimto.rpg.inventory.data.NKeys;
 import cz.neumimto.rpg.inventory.data.manipulators.EffectsData;
+import cz.neumimto.rpg.itemizerbridge.serializers.EffectMapSerializer;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 import org.spongepowered.api.data.key.Key;
@@ -16,6 +17,7 @@ import java.util.Map;
 public class CustomEnchantment implements ItemNbtFactory {
 
     @Setting("effects")
+    @CustomAdapter(EffectMapSerializer.class)
     private Map<String, EffectParams> effects;
 
     @Override

@@ -17,7 +17,7 @@ import org.spongepowered.api.plugin.Plugin;
         id = "nt-rpg-customnpcs-bridge",
         name = "NT-RPG CustomNPCs Bridge",
         description = "Bridge plugin that connects NT-RPG plugin and CustomNPCs mod",
-        version = "0.3",
+        version = "@VERSION@",
         authors = {"GlassSpirit"},
         dependencies = {
                 @Dependency(id = "nt-rpg"),

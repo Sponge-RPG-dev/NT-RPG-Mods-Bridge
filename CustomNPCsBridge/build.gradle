@@ -17,12 +17,14 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'gradle.plugin.org.spongepowered:spongegradle:0.8.1'
+        classpath "gradle.plugin.net.kyori:blossom:1.1.0"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.plugin'
+apply plugin: "net.kyori.blossom"
 
 group = 'ru.glassspirit'
 version = '0.3'
@@ -30,6 +32,19 @@ archivesBaseName = 'NT-RPG-CustomNPCs-Bridge'
 
 sourceCompatibility = targetCompatibility = 1.8
 compileJava.options.encoding = compileTestJava.options.encoding = 'UTF-8'
+
+blossom {
+    String str = "src/main/java/ru/glassspirit/customnpcsbridge/CustomNPCsBridge.java"
+    replaceToken '@VERSION@', getVersion().toString(), str
+}
+
+sponge {
+    plugin {
+        meta {
+            id = 'nt-rpg-customnpcs-bridge'
+        }
+    }
+}
 
 minecraft {
     forgeVersion = '1.12.2-14.23.5.2811'

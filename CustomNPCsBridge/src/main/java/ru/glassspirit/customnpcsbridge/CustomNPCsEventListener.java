@@ -1,7 +1,7 @@
 package ru.glassspirit.customnpcsbridge;
 
-import cz.neumimto.core.ioc.IoC;
 import cz.neumimto.rpg.Log;
+import cz.neumimto.rpg.NtRpgPlugin;
 import cz.neumimto.rpg.configuration.DebugLevel;
 import cz.neumimto.rpg.players.CharacterService;
 import cz.neumimto.rpg.players.ExperienceSources;
@@ -21,7 +21,7 @@ public class CustomNPCsEventListener {
     public CustomNPCsEventListener() {
         if (NpcAPI.IsAvailable()) {
             NpcAPI.Instance().events().register(this);
-            characterService = IoC.get().build(CharacterService.class);
+            characterService = NtRpgPlugin.GlobalScope.characterService;
         }
     }
 
